@@ -1,5 +1,6 @@
-import { HomeIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity';
+
+import { HomeIcon } from '../objects/Icons';
 
 export default defineType({
   name: 'home',
@@ -80,7 +81,7 @@ export default defineType({
       return {
         subtitle: 'Home',
         title,
-      }
+      };
     },
   },
-})
+});

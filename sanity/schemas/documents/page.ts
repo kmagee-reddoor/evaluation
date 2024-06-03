@@ -1,5 +1,6 @@
-import { DocumentIcon, ImageIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity';
+
+import { DocumentIcon, ImageIcon } from '../objects/Icons';
 
 export default defineType({
   type: 'document',
@@ -124,7 +125,7 @@ export default defineType({
       return {
         subtitle: 'Page',
         title,
-      }
+      };
     },
   },
-})
+});

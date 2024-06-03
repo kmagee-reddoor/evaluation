@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'milestone',
@@ -59,7 +59,7 @@ export default defineType({
           .filter(Boolean)
           .join(' - '),
         title,
-      }
+      };
     },
   },
-})
+});

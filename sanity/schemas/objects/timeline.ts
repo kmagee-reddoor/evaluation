@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'timeline',
@@ -42,9 +42,9 @@ export default defineType({
               title: 'title',
             },
             prepare({ items, title }) {
-              const hasItems = items && items.length > 0
+              const hasItems = items && items.length > 0;
               const milestoneNames =
-                hasItems && items.map((timeline) => timeline.title).join(', ')
+                hasItems && items.map((timeline) => timeline.title).join(', ');
 
               return {
                 subtitle: hasItems
@@ -53,7 +53,7 @@ export default defineType({
                     })`
                   : 'No milestones',
                 title,
-              }
+              };
             },
           },
         },
@@ -65,9 +65,9 @@ export default defineType({
       items: 'items',
     },
     prepare({ items }: { items: { title: string }[] }) {
-      const hasItems = items && items.length > 0
+      const hasItems = items && items.length > 0;
       const timelineNames =
-        hasItems && items.map((timeline) => timeline.title).join(', ')
+        hasItems && items.map((timeline) => timeline.title).join(', ');
 
       return {
         title: 'Timelines',
@@ -76,7 +76,7 @@ export default defineType({
               items.length > 1 ? 's' : ''
             })`
           : 'No timelines',
-      }
+      };
     },
   },
-})
+});

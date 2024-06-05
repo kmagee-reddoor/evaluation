@@ -7,24 +7,15 @@ export interface MenuItem {
   title?: string
 }
 
-export interface MilestoneItem {
-  description?: string
-  duration?: {
-    start?: string
-    end?: string
-  }
-  image?: Image
-  tags?: string[]
-  title?: string
+export interface AccessibleImage extends Image {
+  alt?: string
 }
 
-export interface ShowcaseProject {
+export interface Hero {
   _type: string
-  coverImage?: Image
-  overview?: PortableTextBlock[]
-  slug?: string
-  tags?: string[]
-  title?: string
+  heading?: string
+  tagline?: string
+  image: AccessibleImage
 }
 
 // Page payloads
@@ -32,8 +23,8 @@ export interface ShowcaseProject {
 export interface HomePagePayload {
   footer?: PortableTextBlock[]
   overview?: PortableTextBlock[]
-  showcaseProjects?: ShowcaseProject[]
   title?: string
+  pageBuilder?: Hero[]
 }
 
 export interface PagePayload {
@@ -42,21 +33,6 @@ export interface PagePayload {
   overview?: PortableTextBlock[]
   title?: string
   slug?: string
-}
-
-export interface ProjectPayload {
-  client?: string
-  coverImage?: Image
-  description?: PortableTextBlock[]
-  duration?: {
-    start?: string
-    end?: string
-  }
-  overview?: PortableTextBlock[]
-  site?: string
-  slug: string
-  tags?: string[]
-  title?: string
 }
 
 export interface SettingsPayload {

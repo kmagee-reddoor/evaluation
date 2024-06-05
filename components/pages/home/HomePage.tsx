@@ -1,9 +1,8 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
-import Link from 'next/link'
 
-import { ProjectListItem } from '@/components/pages/home/ProjectListItem'
+import BgVideo from '@/components/shared/BgVideo'
 import { Header } from '@/components/shared/Header'
-import { resolveHref } from '@/sanity/lib/utils'
+import ImageBox from '@/components/shared/ImageBox'
 import type { HomePagePayload } from '@/types'
 
 export interface HomePageProps {
@@ -13,33 +12,41 @@ export interface HomePageProps {
 
 export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { overview = [], showcaseProjects = [], title = '' } = data ?? {}
+  const { overview = [], title = '', pageBuilder } = data ?? {}
 
   return (
     <div className="space-y-20">
-      {/* Header */}
-      {title && <Header centered title={title} description={overview} />}
-      {/* Showcase projects */}
-      {showcaseProjects && showcaseProjects.length > 0 && (
-        <div className="mx-auto max-w-[100rem] rounded-md border">
-          {showcaseProjects.map((project, key) => {
-            const href = resolveHref(project?._type, project?.slug)
-            if (!href) {
-              return null
+      {pageBuilder && pageBuilder.length > 0 && (
+        <div>
+          {pageBuilder.map((module) => {
+            switch (module._type) {
+              case 'hero':
+                return (
+                  <section className="flex flex-col lg:flex-row items-center justify-between p-8 lg:p-16">
+                    <div className="lg:w-1/2">
+                      <h1 className="text-4xl font-bold mb-4">
+                        {module.heading}
+                      </h1>
+                      <p className="text-lg mb-6">{module.tagline}</p>
+                      <a
+                        href="#"
+                        className="inline-block bg-black text-white py-2 px-4 rounded"
+                      >
+                        Our Initiatives
+                      </a>
+                    </div>
+                    <div className="lg:w-1/2 mt-8 lg:mt-0">
+                      <ImageBox
+                        image={module.image}
+                        alt={`${module.image.alt}`}
+                        classesWrapper="relative w-full h-auto object-cover"
+                      />
+                    </div>
+                  </section>
+                )
+              default:
+                console.error(`Unsupported module type ${module._type}`)
             }
-            return (
-              <Link
-                key={key}
-                href={href}
-                data-sanity={encodeDataAttribute?.([
-                  'showcaseProjects',
-                  key,
-                  'slug',
-                ])}
-              >
-                <ProjectListItem project={project} odd={key % 2} />
-              </Link>
-            )
           })}
         </div>
       )}
@@ -48,3 +55,9 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 }
 
 export default HomePage
+
+// <ImageBox
+//   image={module.image}
+//   alt={`${module.image.alt}`}
+//   classesWrapper="relative w-full h-auto object-cover"
+// />

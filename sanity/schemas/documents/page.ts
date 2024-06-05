@@ -1,6 +1,7 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
-import { DocumentIcon, ImageIcon } from '../objects/Icons';
+import accessibleImage from '../fields/accessibleImage'
+import { DocumentIcon } from '../objects/Icons'
 
 export default defineType({
   type: 'document',
@@ -81,39 +82,7 @@ export default defineType({
           styles: [],
         }),
         // Custom blocks
-        defineArrayMember({
-          name: 'timeline',
-          type: 'timeline',
-        }),
-        defineField({
-          type: 'image',
-          icon: ImageIcon,
-          name: 'image',
-          title: 'Image',
-          options: {
-            hotspot: true,
-          },
-          preview: {
-            select: {
-              imageUrl: 'asset.url',
-              title: 'caption',
-            },
-          },
-          fields: [
-            defineField({
-              title: 'Caption',
-              name: 'caption',
-              type: 'string',
-            }),
-            defineField({
-              name: 'alt',
-              type: 'string',
-              title: 'Alt text',
-              description:
-                'Alternative text for screenreaders. Falls back on caption if not set',
-            }),
-          ],
-        }),
+        accessibleImage,
       ],
     }),
   ],
@@ -125,7 +94,7 @@ export default defineType({
       return {
         subtitle: 'Page',
         title,
-      };
+      }
     },
   },
-});
+})

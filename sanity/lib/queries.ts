@@ -4,15 +4,16 @@ export const homePageQuery = groq`
   *[_type == "home"][0]{
     _id,
     overview,
-    showcaseProjects[]->{
-      _type,
-      coverImage,
-      overview,
-      "slug": slug.current,
-      tags,
-      title,
-    },
     title,
+    pageBuilder[]{
+      // "hero" in an "object" from which we can "pick" fields
+      _type == "hero" => {
+        _type,
+        heading,
+        tagline,
+        image
+      },
+    }
   }
 `
 
@@ -23,21 +24,6 @@ export const pagesBySlugQuery = groq`
     overview,
     title,
     "slug": slug.current,
-  }
-`
-
-export const projectBySlugQuery = groq`
-  *[_type == "project" && slug.current == $slug][0] {
-    _id,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
-    "slug": slug.current,
-    tags,
-    title,
   }
 `
 

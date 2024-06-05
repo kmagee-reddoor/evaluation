@@ -1,6 +1,6 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
-import { HomeIcon } from '../objects/Icons';
+import { HomeIcon } from '../objects/Icons'
 
 export default defineType({
   name: 'home',
@@ -60,16 +60,35 @@ export default defineType({
       validation: (rule) => rule.max(155).required(),
     }),
     defineField({
-      name: 'showcaseProjects',
-      title: 'Showcase projects',
-      description:
-        'These are the projects that will appear first on your landing page.',
+      name: 'pageBuilder',
       type: 'array',
+      title: 'Page builder',
       of: [
         defineArrayMember({
-          type: 'reference',
-          to: [{ type: 'project' }],
+          name: 'hero',
+          type: 'hero',
         }),
+        // defineArrayMember({
+        //   name: 'textWithIllustration',
+        //   type: 'textWithIllustration',
+        // }),
+        // defineArrayMember({
+        //   name: 'gallery',
+        //   type: 'gallery',
+        // }),
+        // defineArrayMember({
+        //   name: 'form',
+        //   type: 'form',
+        // }),
+        // defineArrayMember({
+        //   name: 'video',
+        //   type: 'video',
+        // }),
+        // defineArrayMember({
+        //   name: 'callToAction',
+        //   type: 'reference',
+        //   to: [{ type: 'promotion' }],
+        // }),
       ],
     }),
   ],
@@ -81,7 +100,7 @@ export default defineType({
       return {
         subtitle: 'Home',
         title,
-      };
+      }
     },
   },
-});
+})

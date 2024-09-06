@@ -12,4 +12,4 @@ const ImageIcon = (props) => <SanityImageIcon {...props} />;
 const CogIcon = (props) => <SanityCogIcon {...props} />;
 const HomeIcon = (props) => <SanityHomeIcon {...props} />;
 
-export { CogIcon, DocumentIcon, ImageIcon, HomeIcon };
+export { CogIcon, DocumentIcon, HomeIcon,ImageIcon };

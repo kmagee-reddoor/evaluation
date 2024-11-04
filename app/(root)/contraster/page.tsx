@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 
 import ContrastForm, { contrastRow } from "@/components/shared/ContrastForm";
+import Chip from "@/components/shared/Chip";
 
 const App = () => {
   const [rows, setRows] = useState<contrastRow[]>([]);
@@ -24,6 +25,7 @@ const App = () => {
         <h1 className="text-2xl font-bold">Contrast Checker</h1>
       </div>
 
+      <Chip>Some text</Chip>
       <ContrastForm addRow={addRow} />
 
       <div className="w-full max-w-lg space-y-4">

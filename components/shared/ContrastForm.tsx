@@ -39,6 +39,7 @@ const ContrastForm: React.FC<ContrastFormProps> = ({ addRow }) => {
   return (
     <form className="w-full max-w-lg mb-6" onSubmit={formik.handleSubmit}>
       <div className="flex gap-8">
+        {/* TODO: Create a field component, refactor this page, then create unit tests! */}
         <label className="flex flex-col">
           <span className="text-sm font-medium mb-1">Sample Text</span>
           <input

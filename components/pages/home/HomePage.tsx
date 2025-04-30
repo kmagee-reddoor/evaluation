@@ -1,7 +1,5 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 
-import BgVideo from '@/components/shared/BgVideo'
-import { Header } from '@/components/shared/Header'
 import ImageBox from '@/components/shared/ImageBox'
 import type { HomePagePayload } from '@/types'
 
@@ -55,9 +53,3 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 }
 
 export default HomePage
-
-// <ImageBox
-//   image={module.image}
-//   alt={`${module.image.alt}`}
-//   classesWrapper="relative w-full h-auto object-cover"
-// />

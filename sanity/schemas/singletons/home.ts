@@ -76,10 +76,10 @@ export default defineType({
         //   name: 'gallery',
         //   type: 'gallery',
         // }),
-        // defineArrayMember({
-        //   name: 'form',
-        //   type: 'form',
-        // }),
+        defineArrayMember({
+          name: 'form',
+          type: 'form',
+        }),
         // defineArrayMember({
         //   name: 'video',
         //   type: 'video',

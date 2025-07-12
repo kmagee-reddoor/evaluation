@@ -13,6 +13,7 @@ import { locate } from '@/sanity/plugins/locate'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
 import page from '@/sanity/schemas/documents/page'
 import Hero from '@/sanity/schemas/modules/Hero'
+import Form from '@/sanity/schemas/modules/Form'
 import duration from '@/sanity/schemas/objects/duration'
 import home from '@/sanity/schemas/singletons/home'
 import settings from '@/sanity/schemas/singletons/settings'
@@ -34,6 +35,7 @@ export default defineConfig({
       settings,
       // Modules
       Hero,
+      Form,
       // Documents
       duration,
       page,

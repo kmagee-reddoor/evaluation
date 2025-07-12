@@ -1,6 +1,7 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 
 import ImageBox from '@/components/shared/ImageBox'
+import ContactForm from '@/components/shared/ContactForm'
 import type { HomePagePayload } from '@/types'
 
 export interface HomePageProps {
@@ -40,6 +41,18 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
                         classesWrapper="relative w-full h-auto object-cover"
                       />
                     </div>
+                  </section>
+                )
+              case 'form':
+                return (
+                  <section className="p-8 lg:p-16">
+                    {module.heading && (
+                      <h2 className="mb-4 text-3xl font-bold">{module.heading}</h2>
+                    )}
+                    {module.tagline && (
+                      <p className="mb-6 text-lg">{module.tagline}</p>
+                    )}
+                    <ContactForm />
                   </section>
                 )
               default:

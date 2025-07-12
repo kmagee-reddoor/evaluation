@@ -18,13 +18,19 @@ export interface Hero {
   image: AccessibleImage
 }
 
+export interface FormModule {
+  _type: string
+  heading?: string
+  tagline?: string
+}
+
 // Page payloads
 
 export interface HomePagePayload {
   footer?: PortableTextBlock[]
   overview?: PortableTextBlock[]
   title?: string
-  pageBuilder?: Hero[]
+  pageBuilder?: Array<Hero | FormModule>
 }
 
 export interface PagePayload {

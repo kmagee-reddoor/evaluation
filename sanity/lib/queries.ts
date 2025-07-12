@@ -13,6 +13,11 @@ export const homePageQuery = groq`
         tagline,
         image
       },
+      _type == "form" => {
+        _type,
+        heading,
+        tagline
+      }
     }
   }
 `

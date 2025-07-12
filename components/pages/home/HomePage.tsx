@@ -1,8 +1,8 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader'
 
-import ImageBox from '@/components/shared/ImageBox'
 import ContactForm from '@/components/shared/ContactForm'
-import type { HomePagePayload } from '@/types'
+import ImageBox from '@/components/shared/ImageBox'
+import type { FormModule, Hero, HomePagePayload } from '@/types'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -20,13 +20,14 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
           {pageBuilder.map((module) => {
             switch (module._type) {
               case 'hero':
+                const heroModule = module as Hero;
                 return (
                   <section className="flex flex-col lg:flex-row items-center justify-between p-8 lg:p-16">
                     <div className="lg:w-1/2">
                       <h1 className="text-4xl font-bold mb-4">
-                        {module.heading}
+                        {heroModule.heading}
                       </h1>
-                      <p className="text-lg mb-6">{module.tagline}</p>
+                      <p className="text-lg mb-6">{heroModule.tagline}</p>
                       <a
                         href="#"
                         className="inline-block bg-black text-white py-2 px-4 rounded"
@@ -36,21 +37,22 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
                     </div>
                     <div className="lg:w-1/2 mt-8 lg:mt-0">
                       <ImageBox
-                        image={module.image}
-                        alt={`${module.image.alt}`}
+                        image={heroModule.image}
+                        alt={`${heroModule.image.alt}`}
                         classesWrapper="relative w-full h-auto object-cover"
                       />
                     </div>
                   </section>
                 )
               case 'form':
+                const formModule = module as FormModule;
                 return (
                   <section className="p-8 lg:p-16">
-                    {module.heading && (
-                      <h2 className="mb-4 text-3xl font-bold">{module.heading}</h2>
+                    {formModule.heading && (
+                      <h2 className="mb-4 text-3xl font-bold">{formModule.heading}</h2>
                     )}
-                    {module.tagline && (
-                      <p className="mb-6 text-lg">{module.tagline}</p>
+                    {formModule.tagline && (
+                      <p className="mb-6 text-lg">{formModule.tagline}</p>
                     )}
                     <ContactForm />
                   </section>

@@ -44,5 +44,6 @@ export interface PagePayload {
 export interface SettingsPayload {
   footer?: PortableTextBlock[]
   menuItems?: MenuItem[]
+  maintenanceMode?: boolean
   ogImage?: Image
 }

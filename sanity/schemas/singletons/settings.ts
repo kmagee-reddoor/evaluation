@@ -67,6 +67,13 @@ export default defineType({
         hotspot: true,
       },
     }),
+    defineField({
+      name: 'maintenanceMode',
+      title: 'Maintenance Mode',
+      type: 'boolean',
+      description:
+        'When enabled, only authenticated Sanity users can view the site.',
+    }),
   ],
   preview: {
     prepare() {

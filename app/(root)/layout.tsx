@@ -10,6 +10,7 @@ import { Footer } from '@/components/global/Footer'
 import { Navbar } from '@/components/global/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { loadHomePage, loadSettings } from '@/sanity/loader/loadQuery'
+import { isLoggedIn } from '@/sanity/lib/isLoggedIn'
 
 const LiveVisualEditing = dynamic(
   () => import('@/sanity/loader/LiveVisualEditing'),
@@ -47,6 +48,19 @@ export default async function IndexRoute({
 }: {
   children: React.ReactNode
 }) {
+  const { data: settings } = await loadSettings()
+
+  if (settings?.maintenanceMode) {
+    const loggedIn = await isLoggedIn()
+    if (!loggedIn) {
+      return (
+        <div className="flex min-h-screen items-center justify-center text-center">
+          Temporarily Undergoing Maintenance
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <div className="flex min-h-screen flex-col bg-white text-black">

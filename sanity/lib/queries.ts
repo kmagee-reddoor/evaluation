@@ -40,6 +40,7 @@ export const settingsQuery = groq`
       "slug": slug.current,
       title
     },
+    maintenanceMode,
     ogImage,
   }
 `

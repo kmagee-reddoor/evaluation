@@ -30,7 +30,7 @@ export function middleware(req: NextRequest) {
   const url = entry.destination.startsWith('http')
     ? entry.destination
     : new URL(entry.destination, req.url).toString()
-  const status = entry.permanent ? 308 : 307
+  const status = entry.permanent ? 301 : 302
   return NextResponse.redirect(url, status)
 }
 

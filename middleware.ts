@@ -21,10 +21,10 @@ const filter = createFilter(Array.from(redirectMap.keys()))
 
 export function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
-  if (!filter.has(path)) return
+  if (!filter.has(path)) return NextResponse.next()
 
   const entry = redirectMap.get(path)
-  if (!entry) return
+  if (!entry) return NextResponse.next()
 
   const url = entry.destination.startsWith('http')
     ? entry.destination

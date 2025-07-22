@@ -1,39 +1,63 @@
-import { NextRequest, NextResponse } from 'next/server'
-import redirects from './redirects.json'
-import { BloomFilter } from 'bloom-filters'
+import { ScalableBloomFilter } from 'bloom-filters'
+import { NextRequest,NextResponse } from 'next/server'
 
-interface Redirect {
-  source: string
-  destination: string
-  permanent?: boolean
-}
+import GeneratedBloomFilter from '@/redirects/redirects-bloom-filter.json'
+import type { RedirectEntry } from '@/redirects/types'
 
-function createFilter(values: string[]) {
-  const errorRate = 0.01
-  const size = values.length > 0 ? values.length : 10 // Use a minimum size of 10 for empty arrays
-  const filter = BloomFilter.create(size, errorRate)
-  values.forEach((v) => filter.add(v))
-  return filter
-}
+// Initialize bloom filter from a generated JSON file
+const bloomFilter = ScalableBloomFilter.fromJSON(GeneratedBloomFilter as any)
 
-const redirectMap = new Map<string, Redirect>()
-redirects.forEach((r) => redirectMap.set(r.source, r))
-const filter = createFilter(Array.from(redirectMap.keys()))
+export async function middleware(request: NextRequest) {
+  // Get the path for the incoming request
+  const pathname = request.nextUrl.pathname
 
-export function middleware(req: NextRequest) {
-  const path = req.nextUrl.pathname
-  if (!filter.has(path)) return NextResponse.next()
+  // Check if the path is in the bloom filter
+  if (bloomFilter.has(pathname)) {
+    // Forward the pathname to the Route Handler
+    const api = new URL(
+      `/api/redirects?pathname=${encodeURIComponent(request.nextUrl.pathname)}`,
+      request.nextUrl.origin
+    )
 
-  const entry = redirectMap.get(path)
-  if (!entry) return NextResponse.next()
+    try {
+      // Fetch redirect data from the Route Handler
+      const redirectData = await fetch(api)
 
-  const url = entry.destination.startsWith('http')
-    ? entry.destination
-    : new URL(entry.destination, req.url).toString()
-  const status = entry.permanent ? 301 : 302
-  return NextResponse.redirect(url, status)
+      if (redirectData.ok) {
+        const redirectEntry: RedirectEntry | undefined =
+          await redirectData.json()
+
+        if (redirectEntry) {
+          // Determine the status code
+          const statusCode = redirectEntry.permanent ? 308 : 307
+
+          // Redirect to the destination
+          return NextResponse.redirect(redirectEntry.target, statusCode)
+        }
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  // No redirect found, continue the request without redirecting
+  return NextResponse.next()
 }
 
 export const config = {
-  matcher: '/:path*',
+  // https://nextjs.org/docs/messages/edge-dynamic-code-evaluation
+  unstable_allowDynamic: [
+    '**/node_modules/lodash/_root.js',
+    '**/node_modules/reflect-metadata/Reflect.js',
+  ],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+  ],
 }

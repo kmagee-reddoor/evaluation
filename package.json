@@ -2,7 +2,7 @@
   "name": "sanity-template-template-nextjs-personal-website",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "yarn generate-bloom-filter && next build",
     "dev": "next",
     "format": "npx prettier --write . --ignore-path .gitignore",
     "lint": "next lint -- --ignore-path .gitignore",
@@ -10,7 +10,8 @@
     "start": "next start",
     "type-check": "tsc --noEmit",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "generate-bloom-filter": "tsx redirects/generate-bloom-filter.ts"
   },
   "prettier": {
     "semi": false,
@@ -26,6 +27,7 @@
     "@sanity/vision": "3.28.0",
     "@tailwindcss/typography": "0.5.10",
     "axios": "^1.7.2",
+    "bloom-filters": "^3.0.4",
     "classnames": "2.5.1",
     "date-fns": "^3.6.0",
     "formik": "^2.4.6",
@@ -64,6 +66,7 @@
     "prettier-plugin-tailwindcss": "0.5.11",
     "tailwindcss": "3.4.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
     "typescript": "5.3.3"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"

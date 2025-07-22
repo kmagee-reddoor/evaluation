@@ -1,4 +1,3 @@
 [
-  { "source": "/old-path", "destination": "/new-path", "permanent": true },
-  { "source": "/blog", "destination": "/articles", "permanent": false }
+  { "source": "/old-path", "destination": "/new-path", "permanent": true }
 ]

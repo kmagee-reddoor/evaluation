@@ -10,7 +10,8 @@ interface Redirect {
 
 function createFilter(values: string[]) {
   const errorRate = 0.01
-  const filter = BloomFilter.create(values.length || 1, errorRate)
+  const size = values.length > 0 ? values.length : 10 // Use a minimum size of 10 for empty arrays
+  const filter = BloomFilter.create(size, errorRate)
   values.forEach((v) => filter.add(v))
   return filter
 }

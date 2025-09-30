@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
 export function GET() {
-  return NextResponse.json({ success: false }, { status: 500 })
+  return NextResponse.json({ success: true }, { status: 200 })
 }
 
 

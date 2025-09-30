@@ -9,7 +9,8 @@ const NavbarPreview = dynamic(() => import('./NavbarPreview'))
 export async function Navbar() {
   const initial = await loadSettings()
 
-  if (draftMode().isEnabled) {
+  const dm = await draftMode()
+  if (dm.isEnabled) {
     return <NavbarPreview initial={initial} />
   }
 

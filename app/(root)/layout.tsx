@@ -49,6 +49,7 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const { data: settings } = await loadSettings()
+  const dm = await draftMode()
 
   if (settings?.maintenanceMode) {
     const loggedIn = await isLoggedIn()
@@ -74,7 +75,7 @@ export default async function IndexRoute({
           <Footer />
         </Suspense>
       </div>
-      {draftMode().isEnabled && <LiveVisualEditing />}
+      {dm.isEnabled && <LiveVisualEditing />}
     </>
   )
 }

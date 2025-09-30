@@ -5,8 +5,9 @@ import { cookies } from 'next/headers'
 import { client } from './client'
 
 export async function isLoggedIn(): Promise<boolean> {
+  const c = await cookies()
   const cookieValue =
-    cookies().get('sanitySession')?.value || cookies().get('__session')?.value
+    c.get('sanitySession')?.value || c.get('__session')?.value
 
   if (!cookieValue) {
     return false
